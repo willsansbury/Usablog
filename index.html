@@ -74,7 +74,33 @@ alert("Usablog is an experimental HTML5 usability test observation logging tool 
 			  }
 			init();
 		})
+
+		// Show the new task dialog
+		$('#new_task').click(function(){			
+			$('#dialog_overlay').css({ display: 'block' });
+			$('#dialog_overlay').css('opacity',0.7)
+			
+			$('#new_task_dialog').css({ display: 'block' });
 		});
+		
+		// Add the new task header to the log
+		$('#create_task').click(function(){			
+			//alert($('#new_task_ent').val() );
+			$('#log').append('<tr class="task"><td colspan="2">' + $('#new_task_ent').val() + '</td></tr>');
+
+			localStorage.setItem("usablog." + session + ".localStore", $("#log").html());
+			init();
+
+			closeDialog('new_task_dialog');
+		});
+			
+		}) // End jQuery functions
+		
+		// Close dialog box
+		function closeDialog(dialog) {
+			$('#dialog_overlay').css({ display: 'none' });
+			$('#' + dialog).css({ display: 'none' });
+		}
 		</script>
 		
 		<script type="text/javascript">
@@ -90,7 +116,19 @@ alert("Usablog is an experimental HTML5 usability test observation logging tool 
 		  })();
 
 		</script>
-		
+
+		<style type="text/css">
+			.task {
+				color: #fff;
+				background: #ccc;
+			}
+			
+			.task td {
+				color: #fff !important;
+				text-align: left !important;
+			}
+		</style>
+
 	</head>
 	<body>
 <header>
@@ -100,6 +138,7 @@ alert("Usablog is an experimental HTML5 usability test observation logging tool 
 	<a href="#" id="wtf">What is Usablog?</a>
 	<a href="#" id="nuke">Nuclear Option</a>
 	<a href="https://github.com/willsansbury/Usablog" target="_blank">Usablog on GitHub</a>
+	<a href="#" id="new_task">New Task</a>
 	<a href="http://twitter.com/share" style="float:right" class="twitter-share-button" data-text="Usablog - an experiment in super simple usability test logging" data-count="horizontal" data-via="willsansbury">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 </header>
 
@@ -111,6 +150,25 @@ alert("Usablog is an experimental HTML5 usability test observation logging tool 
 			</form>
 			
 		</footer>
-		
+
+<div id="dialog_overlay" style="display: none; position: fixed; top: 0%; left: 0%; width: 100%; height: 100%; background: #e6e6e6;"></div>
+
+<div id="new_task_dialog" style="display: none; background: #fff; border: solid 1px #000; width: 300px; height: 200px; position: fixed; top: 50%; left: 50%; margin-left: -150px; margin-top: -100px;">
+	<div>New Task</div>
+	<p>What is the name, number, or ID of this task?</p>
+	<form>
+		<p>
+			<input type="text" id="new_task_ent" list="new_task_sel">
+			<datalist id="new_task_sel">
+				<option value="Untitled New Task">
+			</datalist>
+		</p>
+		<div>
+			<button id="create_task">Create Task</button>
+			<button onclick="closeDialog('new_task_dialog');">Cancel</button>
+		</div>
+	</form>
+</div>
+
 	</body>
 </html>
