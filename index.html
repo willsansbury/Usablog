@@ -52,7 +52,7 @@
 
 		$("#changeSession").click(function(){
 			var newSession = prompt("What do you want to call this session?", session);
-			session = newSession;
+			if (newSession!=null && newSession!="") session = newSession;
 			localStorage.setItem("usablog.currentSession", session);
 		init();
 		});
