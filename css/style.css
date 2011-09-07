@@ -3,6 +3,7 @@ body {
 }
 table {max-width:700px; width:100%; }
 td {padding:3px; border-bottom: 1px dotted #eee;}
+tr:hover {background-color:#f4f4f4;}
 tr td { color:#333;}
 tr td:first-of-type { color: #BBB; text-align:right; width:25px;}
 header {top:0; left:0; position:fixed; width:100%; background-color:#4BB0CC; color:#fff; height: 60px;}
