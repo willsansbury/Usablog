@@ -60,15 +60,21 @@ $(function() {
 				var a = notetext.split(" ");
 			
 				switch(a[0]) {
-					case "/t":
+					case "/t": // log a new task starting
 					  	$('#log').append('<tr class="task"><td colspan="2">New task: ' + notetext.substr(3,notetext.length) + '</td></tr>');
 						save_log();
 						repaint_log();
 					 	return;
-					 break;
-					case "/nuke":
+					break;
+					case "/nuke": // clear html5 localstorage
 						var nukeConfirm = confirm("The nuclear option clears all of your notes. If you click OK, your data will be lost and cannot be recovered. Are you sure you want to go through with this?");
 						if (nukeConfirm) localStorage.clear();
+						repaint_log();
+						return;
+					break;
+					case "/erase": // remove the last log entry
+						$('#log tr:last-child').remove();
+						save_log();
 						repaint_log();
 						return;
 					break;
