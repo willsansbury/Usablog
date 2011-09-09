@@ -103,7 +103,18 @@ $(function() {
 						repaint_log();
 						return;
 					break;
-					
+					case "/e": // log that p committed an 'error'
+						$('#log').append('<tr><td>' + milliseconds_to_minutes_and_seconds(elapsed) + '</td><td class="taskerror">' + notetext.substr(3,notetext.length) + '</td></tr>');
+						save_log();
+						repaint_log();
+					 	return;
+					break;
+						case "/a": // log that p req assist from facilitator
+						$('#log').append('<tr><td>' + milliseconds_to_minutes_and_seconds(elapsed) + '</td><td class="taskassist">' + notetext.substr(3,notetext.length) + '</td></tr>');
+						save_log();
+						repaint_log();
+					 	return;
+					break;
 				}
 			}
 			$("#log").append("<tr><td>" + milliseconds_to_minutes_and_seconds(elapsed) + "</td><td>" + notetext + "</td></tr>");
