@@ -36,11 +36,12 @@ $(function() {
 					var newSession = $("#session_name").val();
 					if (newSession!=null && newSession!="") session = newSession;
 					localStorage.setItem("usablog.currentSession", session);
-					repaint_log();
 					$( this ).dialog( "close" );
+					repaint_log();
 			},
 			Cancel: function() {
 				$( this ).dialog( "close" );
+				repaint_log();
 			}
 		}
 	});
@@ -65,6 +66,13 @@ $(function() {
 						repaint_log();
 					 	return;
 					 break;
+					case "/nuke":
+						var nukeConfirm = confirm("The nuclear option clears all of your notes. If you click OK, your data will be lost and cannot be recovered. Are you sure you want to go through with this?");
+						if (nukeConfirm) localStorage.clear();
+						repaint_log();
+						return;
+					break;
+					
 				}
 			}
 			$("#log").append("<tr><td>" + milliseconds_to_minutes_and_seconds(elapsed) + "</td><td>" + notetext + "</td></tr>");
@@ -81,12 +89,6 @@ $(function() {
 		alert("Usablog is an experimental HTML5 usability test observation logging tool built by Will Sansbury. Use at your own risk. View source only if you're not afraid of nasty code.");
 	});
 
-	//Clear localStorage    
-	$("#nuke").click(function(){
-		var nukeConfirm = confirm("The nuclear option clears all of your notes. If you click OK, your data will be lost and cannot be recovered. Are you sure you want to go through with this?");
-		if (nukeConfirm) localStorage.clear();
-		repaint_log();
-	});
 	
 }); 
 
