@@ -86,7 +86,7 @@ $(function() {
 			
 				switch(a[0]) {
 					case "/t": // log a new task starting
-					  	$('#log').append('<tr class="task"><td colspan="2">New task: ' + notetext.substr(3,notetext.length) + '</td></tr>');
+					  	$('#log').append('<tr class="task"><td>' + milliseconds_to_minutes_and_seconds(elapsed) + '</td><td><span class="newtask">New task</span> ' + notetext.substr(3,notetext.length) + '</td></tr>');
 						save_log();
 						repaint_log();
 					 	return;
