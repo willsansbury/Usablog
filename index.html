@@ -7,168 +7,42 @@
 		</title>
 		<link rel="stylesheet" href="css/boilerplate.css" type="text/css">
 		<link rel="stylesheet" href="css/style.css" type="text/css">
+		<link type="text/css" href="css/smoothness/jquery-ui-1.8.16.custom.css" rel="Stylesheet" />	
 		<script src="js/libs/modernizr-2.0.6.min.js" type="text/javascript"></script>
 		<script src="http://code.jquery.com/jquery-1.6.min.js" type="text/javascript"></script>
-		<script type="text/javascript">
-		var start, elapsed;
-
-		function milliseconds_to_minutes_and_seconds(ms) {
-		s = Math.floor((ms/1000)%60) - 3; //offset 3 seconds for the lag of recording the observation; this will make timestamps closer
-		m = Math.floor((ms/(1000*60))%60);
-		if(s<0) s="0";
-		if(s<10) s = "0" + s;
-		if(m<10) m = "0" + m;
-		return ( m + ":" + s);
-		}
-		function init() {
-				session = localStorage.getItem("usablog.currentSession");
-				if (session == null) {
-					session = "Default Session"
-				} 
-
-		$("#session").html(session);
-
-		$("#log").html(localStorage.getItem("usablog." + session + ".localStore"));
-		$('html, body').animate({scrollTop: $(document).height()}, 'slow');
-		$("#note").val("").focus();
-		}
-
-		$(function() {
-		init();
-
-
-		$("#logNote").click(function() {
-		if( $("#note").val() != "") {
-		start = localStorage.getItem("usablog." + session + ".startTime");
-			if (start == null){
-				 start = new Date().getTime();
-				 localStorage.setItem("usablog." + session + ".startTime", start);
-				}
-			elapsed = (new Date().getTime()) - start;
-			$("#log").append("<tr><td>" + milliseconds_to_minutes_and_seconds(elapsed) + "</td><td>" + $("#note").val() + "</td></tr>");
-			localStorage.setItem("usablog." + session + ".localStore", $("#log").html());
-			init();
-		}
-		});
-
-		$("#changeSession").click(function(){
-			var newSession = prompt("What do you want to call this session?", session);
-			if (newSession!=null && newSession!="") session = newSession;
-			localStorage.setItem("usablog.currentSession", session);
-		init();
-		});
-
-$("#wtf").click(function(){
-alert("Usablog is an experimental HTML5 usability test observation logging tool built by Will Sansbury. Use at your own risk. View source only if you're not afraid of nasty code.");
-});
-		//Clear localStorage    
-		$("#nuke").click(function(){
-			var nukeConfirm = confirm("The nuclear option clears all of your notes. If you click OK, your data will be lost and cannot be recovered. Are you sure you want to go through with this?");
-			if (nukeConfirm == true)
-			  {
-				localStorage.clear();
-			  }
-			else
-			  {
-				return false;
-			  }
-			init();
-		})
-
-		// Show the new task dialog
-		$('#new_task').click(function(){			
-			$('#dialog_overlay').css({ display: 'block' });
-			$('#dialog_overlay').css('opacity',0.7)
-			
-			$('#new_task_dialog').css({ display: 'block' });
-		});
-		
-		// Add the new task header to the log
-		$('#create_task').click(function(){			
-			//alert($('#new_task_ent').val() );
-			$('#log').append('<tr class="task"><td colspan="2">' + $('#new_task_ent').val() + '</td></tr>');
-
-			localStorage.setItem("usablog." + session + ".localStore", $("#log").html());
-			init();
-
-			closeDialog('new_task_dialog');
-		});
-			
-		}) // End jQuery functions
-		
-		// Close dialog box
-		function closeDialog(dialog) {
-			$('#dialog_overlay').css({ display: 'none' });
-			$('#' + dialog).css({ display: 'none' });
-		}
-		</script>
-		
-		<script type="text/javascript">
-
-		  var _gaq = _gaq || [];
-		  _gaq.push(['_setAccount', 'UA-78608-4']);
-		  _gaq.push(['_trackPageview']);
-
-		  (function() {
-		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		  })();
-
-		</script>
-
-		<style type="text/css">
-			.task {
-				color: #fff;
-				background: #ccc;
-			}
-			
-			.task td {
-				color: #fff !important;
-				text-align: left !important;
-			}
-		</style>
-
+		<script type="text/javascript" src="js/libs/jquery-ui-1.8.16.custom.min.js"></script>
+		<script type="text/javascript" src="js/usablog.js"></script>		
 	</head>
 	<body>
 <header>
-	<h1>Usablog</h1>
-	<h2 id="session"></h2>
-	<a href="#" id="changeSession">Change Session</a> 
+	<h1>UsabLog</h1>
+	<h2 id="session" title="Click session name to change to a different session."></h2>
 	<a href="#" id="wtf">What is Usablog?</a>
-	<a href="#" id="nuke">Nuclear Option</a>
 	<a href="https://github.com/willsansbury/Usablog" target="_blank">Usablog on GitHub</a>
-	<a href="#" id="new_task">New Task</a>
-	<a href="http://twitter.com/share" style="float:right" class="twitter-share-button" data-text="Usablog - an experiment in super simple usability test logging" data-count="horizontal" data-via="willsansbury">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 </header>
 
 		<table id="log">
 		</table>
 		<footer>
 			<form>
-			<label for="note">Log entry</label> <input type="text" id="note"> <input type="submit" id="logNote" value="Log">
+			<label for="note">Log entry</label> <input type="text" id="note"> 
+			<a href="#" id="nuke">Clear localStorage</a>
+			<input type="submit" id="logNote" value="Log">
 			</form>
 			
 		</footer>
 
-<div id="dialog_overlay" style="display: none; position: fixed; top: 0%; left: 0%; width: 100%; height: 100%; background: #e6e6e6;"></div>
-
-<div id="new_task_dialog" style="display: none; background: #fff; border: solid 1px #000; width: 300px; height: 200px; position: fixed; top: 50%; left: 50%; margin-left: -150px; margin-top: -100px;">
-	<div>New Task</div>
-	<p>What is the name, number, or ID of this task?</p>
-	<form>
-		<p>
-			<input type="text" id="new_task_ent" list="new_task_sel">
-			<datalist id="new_task_sel">
-				<option value="Untitled New Task">
-			</datalist>
-		</p>
-		<div>
-			<button id="create_task">Create Task</button>
-			<button onclick="closeDialog('new_task_dialog');">Cancel</button>
+		<div id="dialog_change_session" title="Change Session" class="dialog">
+			<p>What do you want to call this new session?</p>
+			<form>
+				<fieldset>
+					<input type="text" id="session_name" list="session_names">
+					<datalist id="session_names">
+						<option value="Untitled New Task">
+					</datalist>
+				</fieldset>
+			</form>
 		</div>
-	</form>
-</div>
 
 	</body>
 </html>
