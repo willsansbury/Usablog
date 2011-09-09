@@ -37,6 +37,7 @@ header form {
     padding: 0;
     font-weight: normal;
 }
+header .menu {float:right; line-height: 60px; padding: 0px 20px;}
 header h1 {
     background-color: #333;
     line-height: 60px;
@@ -44,11 +45,17 @@ header h1 {
     padding: 0px 20px;
     margin: 0;
 }
-header h2:hover {
+#session {text-transform: none; color:#fff; margin:0px 10px;}
+#session_change:hover {
     border-bottom: 1px dotted #fff;
     cursor: pointer;
 }
-header h2 { padding-right: 5px }
+#session_change {font-size: .6em; cursor:pointer;color:#ccc; text-transform:lowercase;}
+
+header h2 { padding-right: 5px;
+	text-transform: uppercase; 
+	color:#348CB8;
+	}
 footer {
     bottom: 0;
     left: 0;

@@ -45,6 +45,31 @@ $(function() {
 			}
 		}
 	});
+	
+	$('#dialog_about').dialog({
+		autoOpen: false,
+		resizable: false,
+		modal: true,
+		width: "550px",
+		buttons: {
+			"OK": function() {
+				$( this ).dialog( "close" );
+				repaint_log();
+			}
+		}
+	});
+	$('#dialog_help').dialog({
+		autoOpen: false,
+		resizable: false,
+		modal: true,
+		width: "550px",
+		buttons: {
+			"OK": function() {
+				$( this ).dialog( "close" );
+				repaint_log();
+			}
+		}
+	});
 
 	$("#logNote").click(function() {
 		var notetext = $("#note").val();
@@ -87,13 +112,16 @@ $(function() {
 		}
 	});
 
-	$("#session").click(function(){
+	$("#session_change").click(function(){
 		$('#dialog_change_session').dialog('open');
 	});
-
-	$("#wtf").click(function(){
-		alert("Usablog is an experimental HTML5 usability test observation logging tool built by Will Sansbury. Use at your own risk. View source only if you're not afraid of nasty code.");
+	$("#about").click(function(){
+		$('#dialog_about').dialog('open');
 	});
+	$("#help").click(function(){
+		$('#dialog_help').dialog('open');
+	});
+
 
 	
 }); 
