@@ -47,10 +47,9 @@ header h1 {
 }
 #session {text-transform: none; color:#fff; margin:0px 10px;}
 #session_change:hover {
-    border-bottom: 1px dotted #fff;
-    cursor: pointer;
+	cursor: pointer;
 }
-#session_change {font-size: .6em; cursor:pointer;color:#ccc; text-transform:lowercase;}
+#session_change {font-size: .5em; cursor:pointer;color:#fff; border-bottom:1px dotted #fff;text-transform:lowercase;}
 
 header h2 { padding-right: 5px;
 	text-transform: uppercase; 
@@ -94,7 +93,7 @@ header a:visited {
     margin: 0px 10px;
     text-decoration: none;
 }
-header a:hover { border-bottom: 1px dotted #fff }
+header a:hover { border-bottom: 1px dotted #fff; color: #fff; }
 .task td {
     border-top: 1px solid #348CB8;
 }
