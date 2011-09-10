@@ -69,6 +69,18 @@ $(function() {
 			}
 		}
 	});
+	$('#dialog_ext').dialog({
+		autoOpen: false,
+		resizable: true,
+		modal: true,
+		width: "550px",
+		buttons: {
+			"OK": function() {
+				$( this ).dialog( "close" );
+				repaint_log();
+			}
+		}
+	});
 
 	$("#logNote").click(function() {
 		var notetext = $("#note").val();
@@ -135,13 +147,17 @@ $(function() {
 	$("#session_change").click(function(){
 		$('#dialog_change_session').dialog('open');
 	});
-	$("#about").click(function(){
-		$('#dialog_about').dialog('open');
-	});
-	$("#help").click(function(){
-		$('#dialog_help').dialog('open');
-	});
 
+ 	$(".dialog_link").click(function() {
+        var url = $(this).attr("href");
+		var linktitle = $(this).attr("title");
+        $("#dialog_ext").load(url, function() {
+	        $("#dialog_ext").dialog({ title: linktitle });	
+            $("#dialog_ext").dialog("open");
+        });
+
+		return false;
+    });
 
 	
 }); 
