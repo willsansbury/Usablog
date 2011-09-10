@@ -101,7 +101,7 @@ $(function() {
 				switch(a[0]) {
 					case "/t": // log a new task starting
 						// TO DO: If this isn't the first task start, read time from last task start and calculate the task duration.
-					  	$('#log').append('<tr class="task"><td class="task_label task_new"><span>Task</span></td><td class="task_time">' + milliseconds_to_minutes_and_seconds(elapsed) + '</td><td class="task_note">' + notetext.substr(3,notetext.length) + '</td></tr>');
+					  	$('#log').append('<tr class="task_new"><td class="task_label"><span>Task</span></td><td class="task_time">' + milliseconds_to_minutes_and_seconds(elapsed) + '</td><td class="task_note">' + notetext.substr(3,notetext.length) + '</td></tr>');
 						save_log();
 						repaint_log();
 					 	return;
@@ -119,13 +119,13 @@ $(function() {
 						return;
 					break;
 					case "/e": // log that p committed an 'error'
-						$('#log').append('<tr><td class="task_label task_error"><span>Error</span></td><td class="task_time">' + milliseconds_to_minutes_and_seconds(elapsed) + '</td><td class="task_note">' + notetext.substr(3,notetext.length) + '</td></tr>');
+						$('#log').append('<tr class="task_error"><td class="task_label"><span>Error</span></td><td class="task_time">' + milliseconds_to_minutes_and_seconds(elapsed) + '</td><td class="task_note">' + notetext.substr(3,notetext.length) + '</td></tr>');
 						save_log();
 						repaint_log();
 					 	return;
 					break;
 					case "/a": // log that p req assist from facilitator
-						$('#log').append('<tr><td class="task_label task_assist"><span>Assist</span></td><td class="task_time">' + milliseconds_to_minutes_and_seconds(elapsed) + '</td><td class="task_note">' + notetext.substr(3,notetext.length) + '</td></tr>');
+						$('#log').append('<tr class="task_assist"><td class="task_label"><span>Assist</span></td><td class="task_time">' + milliseconds_to_minutes_and_seconds(elapsed) + '</td><td class="task_note">' + notetext.substr(3,notetext.length) + '</td></tr>');
 						save_log();
 						repaint_log();
 					 	return;
@@ -136,6 +136,12 @@ $(function() {
 						save_log();
 						repaint_log();
 						return;
+					break;
+					case "/q": // log a quote from p
+						$('#log').append('<tr class="task_quote"><td class="task_label"><span>Quote</span></td><td class="task_time">' + milliseconds_to_minutes_and_seconds(elapsed) + '</td><td class="task_note">' + notetext.substr(3,notetext.length) + '</td></tr>');
+						save_log();
+						repaint_log();
+					 	return;
 					break;
 				}
 			}

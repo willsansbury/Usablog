@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Lobster|Varela+Round|Quattrocento+Sans|Bowlby+One+SC);
+@import url(http://fonts.googleapis.com/css?family=Lobster|Varela+Round|Quattrocento+Sans|IM+Fell+Great+Primer:400italic);
 body {
     margin: 80px 20px;
     font-family: "Varela Round", Helvetica, Arial, sans-serif;
@@ -111,10 +111,11 @@ tr td.task_note {
     color: #000;
 }
 .start { border-top: 1px solid #000; background-color: #f4f4f4; }
-.task { border-top: 1px solid #348CB8 }
-.task_new { color: #348CB8 }
-.task_assist { color: #CED294 }
-.task_error { color: #F692A6 }
+.task_new { border-top: 1px solid #348CB8 }
+.task_new .task_label { color: #348CB8 }
+.task_assist .task_label { color: #CED294 }
+.task_error .task_label { color: #F692A6 }
+.task_quote .task_label { color: #F692A6 }
 .task_label span {
 	font-size: .7em;
 }
@@ -124,3 +125,4 @@ tr td.task_note {
     line-height: 1.5em; 
 	text-align:right;
 }
+.task_quote .task_note {font-style: italic; font-family: "IM+Fell+Great+Primer", Garamond, serif;font-size:1.1em; }
