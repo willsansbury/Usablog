@@ -61,11 +61,12 @@ $(function() {
 				resizable: true,
 				modal: true,
 				width: "550px",
+				close: function(){ repaint_log(); },
 				buttons: {
 					"OK": function() {
 						$( this ).dialog( "close" );
 						repaint_log();
-					}
+						}
 				}
 			});
         });
@@ -147,19 +148,22 @@ $(function() {
 			autoOpen: true,
 			resizable: false,
 			modal: true,
+			close: function(){ repaint_log(); },
 			buttons: {
 				"Change Session": function() {
-						var newSession = $("#session_name").val();
-						if (newSession!=null && newSession!="") session = newSession;
-						localStorage.setItem("usablog.currentSession", session);
-						$( this ).dialog( "close" );
-						repaint_log();
-				},
+					var newSession = $("#session_name").val();
+					if (newSession!=null && newSession!="") session = newSession;
+					localStorage.setItem("usablog.currentSession", session);
+					$( this ).dialog( "close" );
+					repaint_log();
+					},
 				Cancel: function() {
 					$( this ).dialog( "close" );
 					repaint_log();
-				}
+					},
 			}
+			
+
 		});
 		return false;
 	});
