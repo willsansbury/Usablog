@@ -170,8 +170,9 @@ $(function() {
 	$("#download").click(function(){
 	//	$('#log').table2CSV();
 		 var csv_value=$('#log').table2CSV({delivery:'value'});
-		 $("#csv_text").val(csv_value);
-		$("#csvform").submit();
+		 var csv_name = session + ".csv";
+		$.post("utilities/csv.php", { csv_name: csv_name, csv_text: csv_value } );
+	//	$("#csvform").submit();
 		return false;
 	});
 	
