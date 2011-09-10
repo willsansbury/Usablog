@@ -20,68 +20,57 @@ function save_log() {
 	localStorage.setItem("usablog." + session + ".localStore", $("#log").html());
 }
 
+function log_note(log_type){
+	
+		switch(log_type) {
+			case "new":
+		  		$('#log').append('<tr class="task_new"><td class="task_label"><span>Task</span></td><td class="task_time">' + milliseconds_to_minutes_and_seconds(elapsed) + '</td><td class="task_note">' + notetext.substr(3,notetext.length) + '</td></tr>');
+			break;
+			case "error":
+		  		$('#log').append('<tr class="task_new"><td class="task_label"><span>Task</span></td><td class="task_time">' + milliseconds_to_minutes_and_seconds(elapsed) + '</td><td class="task_note">' + notetext.substr(3,notetext.length) + '</td></tr>');
+			break;
+			case "assist":
+		  		$('#log').append('<tr class="task_new"><td class="task_label"><span>Task</span></td><td class="task_time">' + milliseconds_to_minutes_and_seconds(elapsed) + '</td><td class="task_note">' + notetext.substr(3,notetext.length) + '</td></tr>');
+			break;
+			case "quote":
+		  		$('#log').append('<tr class="task_new"><td class="task_label"><span>Task</span></td><td class="task_time">' + milliseconds_to_minutes_and_seconds(elapsed) + '</td><td class="task_note">' + notetext.substr(3,notetext.length) + '</td></tr>');
+			break;
+			case "task":
+		  		$('#log').append('<tr class="task_new"><td class="task_label"><span>Task</span></td><td class="task_time">' + milliseconds_to_minutes_and_seconds(elapsed) + '</td><td class="task_note">' + notetext.substr(3,notetext.length) + '</td></tr>');
+			break;
+		  	default:
+		  		$('#log').append('<tr class="task_new"><td class="task_label"><span>Task</span></td><td class="task_time">' + milliseconds_to_minutes_and_seconds(elapsed) + '</td><td class="task_note">' + notetext.substr(3,notetext.length) + '</td></tr>');
+			break;
+		}
+}
+
 
 // Document ready
 $(function() {
 	
 	repaint_log();
 	
-	// Set up dialogs
-	$('#dialog_change_session').dialog({
-		autoOpen: false,
-		resizable: false,
-		modal: true,
-		buttons: {
-			"Change Session": function() {
-					var newSession = $("#session_name").val();
-					if (newSession!=null && newSession!="") session = newSession;
-					localStorage.setItem("usablog.currentSession", session);
-					$( this ).dialog( "close" );
-					repaint_log();
-			},
-			Cancel: function() {
-				$( this ).dialog( "close" );
-				repaint_log();
-			}
-		}
-	});
 	
-	$('#dialog_about').dialog({
-		autoOpen: false,
-		resizable: false,
-		modal: true,
-		width: "550px",
-		buttons: {
-			"OK": function() {
-				$( this ).dialog( "close" );
-				repaint_log();
-			}
-		}
-	});
-	$('#dialog_help').dialog({
-		autoOpen: false,
-		resizable: false,
-		modal: true,
-		width: "550px",
-		buttons: {
-			"OK": function() {
-				$( this ).dialog( "close" );
-				repaint_log();
-			}
-		}
-	});
-	$('#dialog_ext').dialog({
-		autoOpen: false,
-		resizable: true,
-		modal: true,
-		width: "550px",
-		buttons: {
-			"OK": function() {
-				$( this ).dialog( "close" );
-				repaint_log();
-			}
-		}
-	});
+ 	$(".dialog_link").click(function() {
+        var url = $(this).attr("href");
+		var linktitle = $(this).attr("title");
+        $("#dialog_ext").load(url, function() {
+	        $('#dialog_ext').dialog({
+				autoOpen: true,
+				title: linktitle,
+				resizable: true,
+				modal: true,
+				width: "550px",
+				buttons: {
+					"OK": function() {
+						$( this ).dialog( "close" );
+						repaint_log();
+					}
+				}
+			});
+        });
+		return false;
+    });
 
 	$("#logNote").click(function() {
 		var notetext = $("#note").val();
@@ -95,17 +84,42 @@ $(function() {
 				}
 			elapsed = (new Date().getTime()) - start;
 		
-			if( notetext.charAt(0) == "/" ) {
 				var a = notetext.split(" ");
-			
+				var rest_of_note = '<td class="task_time">' + milliseconds_to_minutes_and_seconds(elapsed) + '</td><td class="task_note">' + notetext.substr(3,notetext.length) + '</td></tr>';
 				switch(a[0]) {
 					case "/t": // log a new task starting
 						// TO DO: If this isn't the first task start, read time from last task start and calculate the task duration.
-					  	$('#log').append('<tr class="task_new"><td class="task_label"><span>Task</span></td><td class="task_time">' + milliseconds_to_minutes_and_seconds(elapsed) + '</td><td class="task_note">' + notetext.substr(3,notetext.length) + '</td></tr>');
+					  	$('#log').append('<tr class="task_new"><td class="task_label"><span>Task</span></td>' + rest_of_note);
 						save_log();
 						repaint_log();
 					 	return;
 					break;
+					case "/e": // log that p committed an 'error'
+						$('#log').append('<tr class="task_error"><td class="task_label"><span>Error</span></td>' + rest_of_note);
+						save_log();
+						repaint_log();
+					 	return;
+					break;
+					case "/a": // log that p req assist from facilitator
+						$('#log').append('<tr class="task_assist"><td class="task_label"><span>Assist</span></td>' + rest_of_note);
+						save_log();
+						repaint_log();
+					 	return;
+					break;
+					case "/q": // log a quote from p
+						$('#log').append('<tr class="task_quote"><td class="task_label"><span>Quote</span></td>' + rest_of_note);
+						save_log();
+						repaint_log();
+					 	return;
+					break;
+					case "/reset": // erase all log entries and reset timer
+						localStorage.removeItem("usablog." + session + ".startTime");
+						$('#log tr').remove();
+						save_log();
+						repaint_log();
+						return;
+					break;
+					
 					case "/nuke": // clear html5 localstorage
 						var nukeConfirm = confirm("The nuclear option clears all of your notes. If you click OK, your data will be lost and cannot be recovered. Are you sure you want to go through with this?");
 						if (nukeConfirm) localStorage.clear();
@@ -118,54 +132,37 @@ $(function() {
 						repaint_log();
 						return;
 					break;
-					case "/e": // log that p committed an 'error'
-						$('#log').append('<tr class="task_error"><td class="task_label"><span>Error</span></td><td class="task_time">' + milliseconds_to_minutes_and_seconds(elapsed) + '</td><td class="task_note">' + notetext.substr(3,notetext.length) + '</td></tr>');
+					default:
+						$("#log").append('<tr><td class="task_label"></td><td class="task_time">' + milliseconds_to_minutes_and_seconds(elapsed) + '</td><td class="task_note">' + notetext + '</td></tr>');
 						save_log();
 						repaint_log();
-					 	return;
 					break;
-					case "/a": // log that p req assist from facilitator
-						$('#log').append('<tr class="task_assist"><td class="task_label"><span>Assist</span></td><td class="task_time">' + milliseconds_to_minutes_and_seconds(elapsed) + '</td><td class="task_note">' + notetext.substr(3,notetext.length) + '</td></tr>');
-						save_log();
-						repaint_log();
-					 	return;
-					break;
-					case "/reset": // erase all log entries and reset timer
-						localStorage.removeItem("usablog." + session + ".startTime");
-						$('#log tr').remove();
-						save_log();
-						repaint_log();
-						return;
-					break;
-					case "/q": // log a quote from p
-						$('#log').append('<tr class="task_quote"><td class="task_label"><span>Quote</span></td><td class="task_time">' + milliseconds_to_minutes_and_seconds(elapsed) + '</td><td class="task_note">' + notetext.substr(3,notetext.length) + '</td></tr>');
-						save_log();
-						repaint_log();
-					 	return;
-					break;
-				}
 			}
-			$("#log").append('<tr><td class="task_label"></td><td class="task_time">' + milliseconds_to_minutes_and_seconds(elapsed) + '</td><td class="task_note">' + notetext + '</td></tr>');
-			save_log();
-			repaint_log();
+
 		}
 	});
 
 	$("#session_change").click(function(){
-		$('#dialog_change_session').dialog('open');
+		$('#dialog_change_session').dialog({
+			autoOpen: true,
+			resizable: false,
+			modal: true,
+			buttons: {
+				"Change Session": function() {
+						var newSession = $("#session_name").val();
+						if (newSession!=null && newSession!="") session = newSession;
+						localStorage.setItem("usablog.currentSession", session);
+						$( this ).dialog( "close" );
+						repaint_log();
+				},
+				Cancel: function() {
+					$( this ).dialog( "close" );
+					repaint_log();
+				}
+			}
+		});
 		return false;
 	});
-
- 	$(".dialog_link").click(function() {
-        var url = $(this).attr("href");
-		var linktitle = $(this).attr("title");
-        $("#dialog_ext").load(url, function() {
-	        $("#dialog_ext").dialog({ title: linktitle });	
-            $("#dialog_ext").dialog("open");
-        });
-
-		return false;
-    });
 
 	$("#download").click(function(){
 	//	$('#log').table2CSV();
