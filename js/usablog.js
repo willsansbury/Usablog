@@ -104,13 +104,13 @@ $(function() {
 						return;
 					break;
 					case "/e": // log that p committed an 'error'
-						$('#log').append('<tr><td>' + milliseconds_to_minutes_and_seconds(elapsed) + '</td><td class="taskerror">' + notetext.substr(3,notetext.length) + '</td></tr>');
+						$('#log').append('<tr><td>' + milliseconds_to_minutes_and_seconds(elapsed) + '</td><td class="taskerror"><span class="task_error">Error</span> ' + notetext.substr(3,notetext.length) + '</td></tr>');
 						save_log();
 						repaint_log();
 					 	return;
 					break;
 						case "/a": // log that p req assist from facilitator
-						$('#log').append('<tr><td>' + milliseconds_to_minutes_and_seconds(elapsed) + '</td><td class="taskassist">' + notetext.substr(3,notetext.length) + '</td></tr>');
+						$('#log').append('<tr><td>' + milliseconds_to_minutes_and_seconds(elapsed) + '</td><td class="taskassist"><span class="task_assist">Assist</span> ' + notetext.substr(3,notetext.length) + '</td></tr>');
 						save_log();
 						repaint_log();
 					 	return;
