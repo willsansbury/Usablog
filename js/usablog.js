@@ -4,7 +4,6 @@ function milliseconds_to_minutes_and_seconds(ms) {
 	m = Math.floor((ms/(1000*60))%60);
 	if(s<0) s="0";
 	if(s<10) s = "0" + s;
-	if(m<10) m = "0" + m;
 	return ( m + ":" + s);
 }
 	
@@ -76,7 +75,9 @@ $(function() {
 		if( notetext != "") {
 		start = localStorage.getItem("usablog." + session + ".startTime");
 			if (start == null){
-				 start = new Date().getTime();
+				var d = new Date();
+				 start = d.getTime();
+				$('#log').append('<tr class="start"><td>0:00</td><td>Began logging on ' + d.toLocaleDateString() + ' at ' + d.toLocaleTimeString() +  '</td></tr>');
 				 localStorage.setItem("usablog." + session + ".startTime", start);
 				}
 			elapsed = (new Date().getTime()) - start;
@@ -86,7 +87,8 @@ $(function() {
 			
 				switch(a[0]) {
 					case "/t": // log a new task starting
-					  	$('#log').append('<tr class="task"><td>' + milliseconds_to_minutes_and_seconds(elapsed) + '</td><td><span class="newtask">New task</span> ' + notetext.substr(3,notetext.length) + '</td></tr>');
+						// TO DO: If this isn't the first task start, read time from last task start and calculate the task duration.
+					  	$('#log').append('<tr class="task"><td><span class="task_new">Task</span> ' + milliseconds_to_minutes_and_seconds(elapsed) + '</td><td>' + notetext.substr(3,notetext.length) + '</td></tr>');
 						save_log();
 						repaint_log();
 					 	return;
@@ -104,16 +106,23 @@ $(function() {
 						return;
 					break;
 					case "/e": // log that p committed an 'error'
-						$('#log').append('<tr><td>' + milliseconds_to_minutes_and_seconds(elapsed) + '</td><td class="taskerror"><span class="task_error">Error</span> ' + notetext.substr(3,notetext.length) + '</td></tr>');
+						$('#log').append('<tr><td><span class="task_error">Error</span> ' + milliseconds_to_minutes_and_seconds(elapsed) + '</td><td>' + notetext.substr(3,notetext.length) + '</td></tr>');
 						save_log();
 						repaint_log();
 					 	return;
 					break;
-						case "/a": // log that p req assist from facilitator
-						$('#log').append('<tr><td>' + milliseconds_to_minutes_and_seconds(elapsed) + '</td><td class="taskassist"><span class="task_assist">Assist</span> ' + notetext.substr(3,notetext.length) + '</td></tr>');
+					case "/a": // log that p req assist from facilitator
+						$('#log').append('<tr><td><span class="task_assist">Assist</span> ' + milliseconds_to_minutes_and_seconds(elapsed) + '</td><td>' + notetext.substr(3,notetext.length) + '</td></tr>');
 						save_log();
 						repaint_log();
 					 	return;
+					break;
+					case "/reset": // erase all log entries and reset timer
+						localStorage.removeItem("usablog." + session + ".startTime");
+						$('#log tr').remove();
+						save_log();
+						repaint_log();
+						return;
 					break;
 				}
 			}
