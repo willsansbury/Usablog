@@ -20,6 +20,7 @@ function save_log() {
 	localStorage.setItem("usablog." + session + ".localStore", $("#log").html());
 }
 
+
 // Document ready
 $(function() {
 	
@@ -89,7 +90,7 @@ $(function() {
 			if (start == null){
 				var d = new Date();
 				 start = d.getTime();
-				$('#log').append('<tr class="start"><td>0:00</td><td>Began logging on ' + d.toLocaleDateString() + ' at ' + d.toLocaleTimeString() +  '</td></tr>');
+				$('#log').append('<tr class="start"><td class="task_note" colspan="3">Began logging on ' + d.toLocaleDateString() + ' at ' + d.toLocaleTimeString() +  '</td></tr>');
 				 localStorage.setItem("usablog." + session + ".startTime", start);
 				}
 			elapsed = (new Date().getTime()) - start;
@@ -100,7 +101,7 @@ $(function() {
 				switch(a[0]) {
 					case "/t": // log a new task starting
 						// TO DO: If this isn't the first task start, read time from last task start and calculate the task duration.
-					  	$('#log').append('<tr class="task"><td><span class="task_new">Task</span> ' + milliseconds_to_minutes_and_seconds(elapsed) + '</td><td>' + notetext.substr(3,notetext.length) + '</td></tr>');
+					  	$('#log').append('<tr class="task"><td class="task_label task_new"><span>Task</span></td><td class="task_time">' + milliseconds_to_minutes_and_seconds(elapsed) + '</td><td class="task_note">' + notetext.substr(3,notetext.length) + '</td></tr>');
 						save_log();
 						repaint_log();
 					 	return;
@@ -118,13 +119,13 @@ $(function() {
 						return;
 					break;
 					case "/e": // log that p committed an 'error'
-						$('#log').append('<tr><td><span class="task_error">Error</span> ' + milliseconds_to_minutes_and_seconds(elapsed) + '</td><td>' + notetext.substr(3,notetext.length) + '</td></tr>');
+						$('#log').append('<tr><td class="task_label task_error"><span>Error</span></td><td class="task_time">' + milliseconds_to_minutes_and_seconds(elapsed) + '</td><td class="task_note">' + notetext.substr(3,notetext.length) + '</td></tr>');
 						save_log();
 						repaint_log();
 					 	return;
 					break;
 					case "/a": // log that p req assist from facilitator
-						$('#log').append('<tr><td><span class="task_assist">Assist</span> ' + milliseconds_to_minutes_and_seconds(elapsed) + '</td><td>' + notetext.substr(3,notetext.length) + '</td></tr>');
+						$('#log').append('<tr><td class="task_label task_assist"><span>Assist</span></td><td class="task_time">' + milliseconds_to_minutes_and_seconds(elapsed) + '</td><td class="task_note">' + notetext.substr(3,notetext.length) + '</td></tr>');
 						save_log();
 						repaint_log();
 					 	return;
@@ -138,7 +139,7 @@ $(function() {
 					break;
 				}
 			}
-			$("#log").append("<tr><td>" + milliseconds_to_minutes_and_seconds(elapsed) + "</td><td>" + notetext + "</td></tr>");
+			$("#log").append('<tr><td class="task_label"></td><td class="task_time">' + milliseconds_to_minutes_and_seconds(elapsed) + '</td><td class="task_note">' + notetext + '</td></tr>');
 			save_log();
 			repaint_log();
 		}
@@ -161,7 +162,7 @@ $(function() {
     });
 
 	$("#download").click(function(){
-		$('#log').table2CSV();
+	//	$('#log').table2CSV();
 		 var csv_value=$('#log').table2CSV({delivery:'value'});
 		 $("#csv_text").val(csv_value);
 		$("#csvform").submit();

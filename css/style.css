@@ -4,20 +4,6 @@ body {
     font-family: "Varela Round", Helvetica, Arial, sans-serif;
 }
 .dialog { display: none }
-table {
-width:100%;
-}
-td {
-    padding: 3px;
-    border-bottom: 1px dotted #eee;
-}
-tr:hover { background-color: #f4f4f4 }
-tr td { color: #333 }
-tr td:first-of-type {
-    color: #BBB;
-    text-align: right;
-    width: 100px;
-}
 header {
     top: 0;
     left: 0;
@@ -36,7 +22,11 @@ header form {
     padding: 0;
     font-weight: normal;
 }
-header .menu {float:right; line-height: 60px; padding: 0px 20px;}
+header .menu {
+    float: right;
+    line-height: 60px;
+    padding: 0px 20px;
+}
 header h1 {
     background-color: #333;
     line-height: 60px;
@@ -44,17 +34,24 @@ header h1 {
     padding: 0px 20px;
     margin: 0;
 }
-#session {text-transform: none; color:#fff; margin:0px 10px;}
-#session_change:hover {
-	cursor: pointer;
+#session {
+    text-transform: none;
+    color: #fff;
+    margin: 0px 10px;
 }
-#session_change {font-size: .5em; cursor:pointer;color:#fff; border-bottom:1px dotted #fff;text-transform:lowercase;}
-
-header h2 { padding-right: 5px;
-	text-transform: uppercase; 
-	color:#348CB8;
-
-	}
+#session_change:hover { cursor: pointer }
+#session_change {
+    font-size: .5em;
+    cursor: pointer;
+    color: #fff;
+    border-bottom: 1px dotted #fff;
+    text-transform: lowercase;
+}
+header h2 {
+    padding-right: 5px;
+    text-transform: uppercase;
+    color: #348CB8;
+}
 footer {
     bottom: 0;
     left: 0;
@@ -79,24 +76,51 @@ footer form input[type="text"] {
     margin: 0;
     height: 100%;
     width: 100%;
-	max-width:900px;
+    max-width: 900px;
     outline: 0;
 }
 footer form input[type="submit"] { margin: -9000px }
 footer form a {
-	float:right;
-	line-height:30px;
-	}
+    float: right;
+    line-height: 30px;
+}
 header a,
 header a:visited {
     color: #fff;
     margin: 0px 10px;
     text-decoration: none;
 }
-header a:hover { border-bottom: 1px dotted #fff; color: #fff; }
-.task td {border-top: 1px solid #348CB8; }
-.start td {border-top:1px solid #000;}
-.task_new, .task_assist, .task_error {display:inline-block;text-transform:uppercase; font-size:.7em; line-height:1em; margin-right: 10px; width:35px;}
-.task_new {color: #348CB8;}
-.task_assist {color:#CED294;}
-.task_error {color:#F692A6;}
+header a:hover {
+    border-bottom: 1px dotted #fff;
+    color: #fff;
+}
+table { width: 100% }
+td {
+    padding: 3px;
+    border-bottom: 1px dotted #eee;
+	line-height:1.5em;
+}
+tr:hover { background-color: #f4f4f4 }
+tr td.task_time {
+    color: #BBB;
+    text-align: right;
+    width: 20px;
+}
+tr td.task_note {
+    text-align: left;
+    color: #000;
+}
+.start { border-top: 1px solid #000; background-color: #f4f4f4; }
+.task { border-top: 1px solid #348CB8 }
+.task_new { color: #348CB8 }
+.task_assist { color: #CED294 }
+.task_error { color: #F692A6 }
+.task_label span {
+	font-size: .7em;
+}
+.task_label {
+    width: 50px;
+    text-transform: uppercase;
+    line-height: 1.5em; 
+	text-align:right;
+}
