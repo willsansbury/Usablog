@@ -165,6 +165,7 @@ $(function() {
 		 var csv_value=$('#log').table2CSV({delivery:'value'});
 		 $("#csv_text").val(csv_value);
 		$("#csvform").submit();
+		return false;
 	});
 	
 }); 
