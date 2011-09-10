@@ -113,9 +113,9 @@ tr td.task_note {
 .start { border-top: 1px solid #000; background-color: #f4f4f4; }
 .task_new { border-top: 1px solid #348CB8 }
 .task_new .task_label { color: #348CB8 }
-.task_assist .task_label { color: #CED294 }
+.task_assist .task_label { color: #B3BA5A }
 .task_error .task_label { color: #F692A6 }
-.task_quote .task_label { color: #F692A6 }
+.task_quote .task_label { color: #EFAD1C }
 .task_label span {
 	font-size: .7em;
 }
