@@ -171,7 +171,7 @@ $(function() {
 	//	$('#log').table2CSV();
 		 var csv_value=$('#log').table2CSV({delivery:'value'});
 		 var csv_name = session + ".csv";
-		$.post("utilities/csv.php", { csv_name: csv_name, csv_text: csv_value } );
+		$.post("utilities/csv.php", { "csv_name": csv_name, "csv_text": csv_value } );
 	//	$("#csvform").submit();
 		return false;
 	});
