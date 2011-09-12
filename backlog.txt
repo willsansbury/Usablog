@@ -1,4 +1,9 @@
 ----------------------
+Licensing
+
+	Research and add some type of licensing to the app.
+
+----------------------
 Session management
 
 	Projects contain studies.
