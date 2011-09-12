@@ -1,0 +1,29 @@
+----------------------
+Session management
+
+	Projects contain studies.
+	Studies contain sessions.
+	Sessions contain tasks (scenarios?).
+	Allow user to set up projects/studies/sessions ahead of time.
+	
+	Allow user to log participant name with the session.
+	 
+
+----------------------
+Shared logs
+
+	Allow multiple users to log to the same session. 
+	Requires
+		-user authentication
+		-database persistence of logs
+
+----------------------
+Adjust start time to sync properly with video if log not started when video started.
+(Suggested by Nate Bolt of Bolt|Peters)
+
+	Option 1	Add "/+ 10:30" and "/- 10:30" commands which would reset start and update 
+				all times already written to the log by adding or subtracting ten minutes 
+				and 30 seconds.
+	Option 2	Add "/adjust 08:32" which would reset start time to 8:32am and rewrite all 
+				of the already written times to be relative to that start time.
+
