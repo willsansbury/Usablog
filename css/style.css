@@ -69,7 +69,7 @@ footer {
     bottom: 0;
     left: 0;
     position: fixed;
-    background-color: #ccc;
+  	background-color: #ccc;
     height: 30px;
     width: 100%;
     border: 1px solid #333;
@@ -85,11 +85,8 @@ footer form input[type="text"] {
     border: none;
     background-color: #ccc;
     padding: 5px;
-    width: auto;
     margin: 0;
-    height: 100%;
-    width: 100%;
-    max-width: 900px;
+    width: 60%;
     outline: 0;
 }
 footer form input[type="submit"] { margin: -9000px }
